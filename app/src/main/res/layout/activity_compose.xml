@@ -13,6 +13,14 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/btSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="59dp" />
 </android.support.constraint.ConstraintLayout>
