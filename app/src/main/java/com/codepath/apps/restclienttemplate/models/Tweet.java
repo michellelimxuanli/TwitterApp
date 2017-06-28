@@ -2,11 +2,13 @@ package com.codepath.apps.restclienttemplate.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by michellelim on 6/26/17.
  */
 
+@Parcel
 public class Tweet {
 
     //list out the attributes
@@ -14,6 +16,10 @@ public class Tweet {
     public long uid; // database ID for the tweet
     public String createdAt;
     public User user;
+
+    //empty constructor needed by Parcelable
+    public Tweet() {
+    }
 
     //deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -27,4 +33,7 @@ public class Tweet {
         return tweet;
     }
 
+    public String getBody() {
+        return body;
+    }
 }
