@@ -8,13 +8,14 @@
 
     <EditText
         android:id="@+id/etCompose"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="What's happening?"
         android:inputType="textPersonName"
-        android:text="Name"
         tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        android:maxLength="140"/>
 
     <Button
         android:id="@+id/btSubmit"
@@ -26,4 +27,13 @@
         tools:layout_editor_absoluteY="59dp"
         android:layout_below="@+id/etCompose"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tvTweetcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etCompose"
+        android:layout_toEndOf="@+id/btSubmit"
+        android:text="0" />
+
 </RelativeLayout>

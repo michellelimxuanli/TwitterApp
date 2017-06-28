@@ -76,7 +76,9 @@ public class TimelineActivity extends AppCompatActivity {
             // Extract body
             Tweet received_tweet = (Tweet) Parcels.unwrap(intent.getParcelableExtra("new_tweet"));
 
-            String body = received_tweet.getBody();
+            tweets.add(0, received_tweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
             // Toast the name to display temporarily on screen
             //Toast.makeText(this, body, Toast.LENGTH_SHORT).show();
         }
