@@ -74,9 +74,7 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/ic_reply"
         android:layout_below="@+id/tvBody"
-        android:layout_alignStart="@+id/tvBody"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_alignStart="@+id/tvBody" />
 
     <ImageButton
         android:id="@+id/ibRetweet"
@@ -95,7 +93,7 @@
         android:layout_height="18dp"
         android:layout_alignBottom="@+id/ibRetweet"
         android:layout_toEndOf="@+id/ibRetweet"
-        android:text="200" />
+        android:text="2000" />
 
     <ImageButton
         android:id="@+id/ibLike"

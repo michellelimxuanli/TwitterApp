@@ -17,6 +17,7 @@ public class Tweet {
     public String createdAt;
     public User user;
     public long retweetCount;
+    public long favoriteCount;
 
     //empty constructor needed by Parcelable
     public Tweet() {
@@ -30,6 +31,7 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.uid = jsonObject.getLong("id");
         tweet.retweetCount = jsonObject.getLong("retweet_count");
+        tweet.favoriteCount = jsonObject.getLong("favorite_count");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         return tweet;
