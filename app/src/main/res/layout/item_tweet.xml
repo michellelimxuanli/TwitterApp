@@ -4,31 +4,29 @@
     android:id="@+id/layoutTweet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:background="@drawable/textlines">
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        app:srcCompat="@android:color/background_dark" />
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="12dp"
+        app:srcCompat="@android:color/background_dark"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivProfileImage"
-        android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="John Doe"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textSize="14sp"
+        android:textColor="@android:color/background_dark" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -37,11 +35,12 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/tvUserhandle"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="This is a sample tweeet that i am writing so that I can check ou the UI"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="20%"/>
 
     <TextView
         android:id="@+id/tvCreatedAt"
@@ -54,7 +53,7 @@
         android:layout_marginRight="10dp"
         android:text="8h"
         android:textColor="@color/medium_gray_30"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvUserhandle"
@@ -62,11 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvUsername"
         android:layout_alignBottom="@+id/tvUsername"
-        android:layout_margin="5dp"
         android:layout_toEndOf="@+id/tvUsername"
         android:text="\@johnthedoe"
-        android:textColor="#AAB8C2"
-        android:textSize="14sp" />
+        android:textColor="@color/medium_gray_30"
+        android:textSize="12sp" />
 
     <ImageButton
         android:id="@+id/ibReply"

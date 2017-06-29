@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by michellelim on 6/26/17.
@@ -27,11 +28,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     private List<Tweet> mTweets;
     Context context;
     private Typeface tf;
+    private Typeface tf_bold;
 
     //pass in the Tweets array in the constructor
-    public TweetAdapter(List<Tweet> tweets, Typeface typeface) {
+    public TweetAdapter(List<Tweet> tweets, Typeface typeface, Typeface typeface2) {
         mTweets = tweets;
         tf = typeface;
+        tf_bold = typeface2;
 
     }
     //for each row, inflate the layout and cache references into ViewHolder
@@ -41,7 +44,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View tweetView = inflater.inflate(R.layout.item_tweet, parent, false);
-        ViewHolder viewHolder = new ViewHolder(tweetView, tf);
+        ViewHolder viewHolder = new ViewHolder(tweetView, tf, tf_bold);
         return viewHolder;
     }
 
@@ -56,7 +59,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         holder.tvBody.setText(tweet.body);
         holder.tvCreatedAt.setText(getRelativeTimeAgo(tweet.createdAt));
         holder.tvUserhandle.setText("@"+tweet.user.screenName);
-        Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
+        Glide.with(context).load(tweet.user.profileImageUrl).bitmapTransform(new RoundedCornersTransformation(context, 5, 2)).into(holder.ivProfileImage);
     }
 
     @Override
@@ -74,7 +77,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
 
 
-        public ViewHolder(View itemView, Typeface tf) {
+        public ViewHolder(View itemView, Typeface tf, Typeface tf_bold) {
             super(itemView);
 
             //perform findViewById lookups
@@ -85,7 +88,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvCreatedAt = (TextView) itemView.findViewById(R.id.tvCreatedAt);
             tvUserhandle = (TextView) itemView.findViewById(R.id.tvUserhandle);
 
-            tvUsername.setTypeface(tf);
+            tvUsername.setTypeface(tf_bold);
             tvBody.setTypeface(tf);
             tvCreatedAt.setTypeface(tf);
             tvUserhandle.setTypeface(tf);
@@ -113,7 +116,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     public String abbrev(String agoDate) {
         if (agoDate.contains("ago")){
-            agoDate = agoDate.replace("ago", "");
+            agoDate = agoDate.replace(" ago", "");
         }
         if (agoDate.contains("minutes")){
             agoDate = agoDate.replace(" minutes", "m");
@@ -122,16 +125,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             agoDate = agoDate.replace(" seconds", "s");
         }
         else if (agoDate.contains(" hours")){
-            agoDate = agoDate.replace("hours", "h");
+            agoDate = agoDate.replace(" hours", "h");
         }
         else if (agoDate.contains(" hour")){
-            agoDate = agoDate.replace("hour", "h");
+            agoDate = agoDate.replace(" hour", "h");
         }
         else if (agoDate.contains(" second")){
-            agoDate = agoDate.replace("second", "s");
+            agoDate = agoDate.replace(" second", "s");
         }
         else if (agoDate.contains(" minute")){
-            agoDate = agoDate.replace("minute", "m");
+            agoDate = agoDate.replace(" minute", "m");
         }
         return agoDate;
 

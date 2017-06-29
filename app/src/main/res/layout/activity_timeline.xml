@@ -21,8 +21,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_gravity="left"
-            android:src="@drawable/ic_twitter_icon"
-            android:tint="@color/light_gray"/>
+            android:src="@drawable/ic_twitter_icon"/>
 
     </android.support.v7.widget.Toolbar>
 

@@ -50,10 +50,12 @@ public class TimelineActivity extends AppCompatActivity {
         tweets = new ArrayList<>();
 
         Typeface tf;
-        tf = Typeface.createFromAsset(getAssets(),"HelveticaNeue.ttf");
+        Typeface tf_bold;
+        tf = Typeface.createFromAsset(getAssets(),"HelveticaNeueLT-Roman.ttf");
+        tf_bold = Typeface.createFromAsset(getAssets(),"HelveticaNeue-Bold.ttf");
 
         // construct the adapter from this data source
-        tweetAdapter = new TweetAdapter(tweets, tf);
+        tweetAdapter = new TweetAdapter(tweets, tf, tf_bold);
         //RecyclerView setup (layout manager, use adapter)
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         // set the adapter
