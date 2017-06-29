@@ -1,49 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:id="@+id/layoutTweet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         app:srcCompat="@android:color/background_dark" />
 
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvBody" />
+        android:layout_alignTop="@+id/ivProfileImage"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:text="John Doe"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvUserhandle"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="5dp"
-        android:text="TextView"
-        android:layout_below="@+id/tvUsername"
+        android:layout_marginRight="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:layout_alignBottom="@+id/ivProfileImage" />
+        android:text="This is a sample tweeet that i am writing so that I can check ou the UI"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tvCreatedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBaseline="@+id/tvUserhandle"
+        android:layout_alignBottom="@+id/tvUserhandle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:text="8h"
+        android:textColor="@color/medium_gray_30"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tvUserhandle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBaseline="@+id/tvUsername"
+        android:layout_alignBottom="@+id/tvUsername"
+        android:layout_margin="5dp"
         android:layout_toEndOf="@+id/tvUsername"
-        android:text="TextView" />
+        android:text="\@johnthedoe"
+        android:textColor="#AAB8C2"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/ibReply"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/vector_compose_dm_shortcut"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignStart="@+id/tvBody" />
+
+    <ImageButton
+        android:id="@+id/ibRetweet"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/ic_vector_retweet"
+        android:layout_below="@+id/tvBody"
+        android:layout_toEndOf="@+id/ibReply" />
+
 
 </RelativeLayout>

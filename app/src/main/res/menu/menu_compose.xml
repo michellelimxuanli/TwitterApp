@@ -2,10 +2,11 @@
      such as `res/menu/menu_movies.xml`  -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/miCompose"
-        android:icon="@drawable/ic_launcher"
-
+        android:icon="@drawable/ic_vector_compose"
         app:showAsAction="ifRoom"
         android:title="Compose" />
+
 </menu>

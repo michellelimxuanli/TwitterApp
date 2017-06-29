@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -25,9 +26,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     private List<Tweet> mTweets;
     Context context;
+    private Typeface tf;
+
     //pass in the Tweets array in the constructor
-    public TweetAdapter(List<Tweet> tweets) {
+    public TweetAdapter(List<Tweet> tweets, Typeface typeface) {
         mTweets = tweets;
+        tf = typeface;
+
     }
     //for each row, inflate the layout and cache references into ViewHolder
     @Override
@@ -36,7 +41,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View tweetView = inflater.inflate(R.layout.item_tweet, parent, false);
-        ViewHolder viewHolder = new ViewHolder(tweetView);
+        ViewHolder viewHolder = new ViewHolder(tweetView, tf);
         return viewHolder;
     }
 
@@ -67,7 +72,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         public TextView tvCreatedAt;
         public TextView tvUserhandle;
 
-        public ViewHolder(View itemView) {
+
+
+        public ViewHolder(View itemView, Typeface tf) {
             super(itemView);
 
             //perform findViewById lookups
@@ -77,6 +84,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvCreatedAt = (TextView) itemView.findViewById(R.id.tvCreatedAt);
             tvUserhandle = (TextView) itemView.findViewById(R.id.tvUserhandle);
+
+            tvUsername.setTypeface(tf);
+            tvBody.setTypeface(tf);
+            tvCreatedAt.setTypeface(tf);
+            tvUserhandle.setTypeface(tf);
+
 
         }
     }
@@ -90,11 +103,50 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             long dateMillis = sf.parse(rawJsonDate).getTime();
             relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+            relativeDate = abbrev(relativeDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         return relativeDate;
+    }
+
+    public String abbrev(String agoDate) {
+        if (agoDate.contains("ago")){
+            agoDate = agoDate.replace("ago", "");
+        }
+        if (agoDate.contains("minutes")){
+            agoDate = agoDate.replace(" minutes", "m");
+        }
+        else if (agoDate.contains(" seconds")){
+            agoDate = agoDate.replace(" seconds", "s");
+        }
+        else if (agoDate.contains(" hours")){
+            agoDate = agoDate.replace("hours", "h");
+        }
+        else if (agoDate.contains(" hour")){
+            agoDate = agoDate.replace("hour", "h");
+        }
+        else if (agoDate.contains(" second")){
+            agoDate = agoDate.replace("second", "s");
+        }
+        else if (agoDate.contains(" minute")){
+            agoDate = agoDate.replace("minute", "m");
+        }
+        return agoDate;
+
+    }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        mTweets.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Tweet> list) {
+        mTweets.addAll(list);
+        notifyDataSetChanged();
     }
 }
 
