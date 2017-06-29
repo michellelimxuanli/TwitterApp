@@ -40,7 +40,7 @@
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="This is a sample tweeet that i am writing so that I can check ou the UI"
         android:textSize="14sp"
-        android:lineSpacingMultiplier="20%"/>
+        android:lineSpacingMultiplier="1.2"/>
 
     <TextView
         android:id="@+id/tvCreatedAt"
@@ -68,19 +68,45 @@
 
     <ImageButton
         android:id="@+id/ibReply"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:srcCompat="@drawable/vector_compose_dm_shortcut"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="#ffffff"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_reply"
         android:layout_below="@+id/tvBody"
-        android:layout_alignStart="@+id/tvBody" />
+        android:layout_alignStart="@+id/tvBody"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="5dp"/>
 
     <ImageButton
         android:id="@+id/ibRetweet"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:srcCompat="@drawable/ic_vector_retweet"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="#ffffff"
+        android:scaleType="fitXY"
         android:layout_below="@+id/tvBody"
-        android:layout_toEndOf="@+id/ibReply" />
+        android:layout_toEndOf="@+id/ibReply"
+        app:srcCompat="@drawable/ic_retweet"
+        android:layout_marginStart="60dp"/>
+
+    <TextView
+        android:id="@+id/tvRetweetCount"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_alignBottom="@+id/ibRetweet"
+        android:layout_toEndOf="@+id/ibRetweet"
+        android:text="200" />
+
+    <ImageButton
+        android:id="@+id/ibLike"
+        android:layout_width="20dp"
+        android:layout_height="22dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="60dp"
+        android:layout_toEndOf="@+id/tvRetweetCount"
+        android:background="#ffffff"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_like" />
 
 
 </RelativeLayout>

@@ -3,9 +3,11 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,6 +35,9 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        Toolbar topToolBar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(topToolBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         etCompose = (EditText) findViewById(R.id.etCompose);
         btSubmit = (Button) findViewById(R.id.btSubmit);
         tvTweetcount = (TextView) findViewById(R.id.tvTweetcount);
@@ -43,7 +48,26 @@ public class ComposeActivity extends AppCompatActivity {
         etCompose.addTextChangedListener(mTextEditorWatcher);
     }
 
-    public void onTweet(View v){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_submit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.miSubmit:
+                onTweet();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void onTweet(){
 
         tweet_body = etCompose.getText().toString();
         client.sendTweet(tweet_body, new JsonHttpResponseHandler(){

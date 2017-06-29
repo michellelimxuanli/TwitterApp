@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.apps.restclienttemplate.ComposeActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/twitter_blue"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left"
+            android:src="@drawable/ic_twitter_icon"/>
+
+    </android.support.v7.widget.Toolbar>
+
     <EditText
         android:id="@+id/etCompose"
         android:layout_width="match_parent"
@@ -15,17 +34,8 @@
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="16dp"
-        android:maxLength="140"/>
-
-    <Button
-        android:id="@+id/btSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:onClick="onTweet"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="59dp"
-        android:layout_below="@+id/etCompose"
+        android:maxLength="140"
+        android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -34,6 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etCompose"
         android:layout_toEndOf="@+id/btSubmit"
-        android:text="0" />
+        android:text="140" />
 
 </RelativeLayout>
