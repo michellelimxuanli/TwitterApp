@@ -106,5 +106,13 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/ic_like" />
 
+    <TextView
+        android:id="@+id/tvLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_alignBottom="@+id/ibLike"
+        android:layout_toEndOf="@+id/ibLike"
+        android:text="2000" />
+
 
 </RelativeLayout>

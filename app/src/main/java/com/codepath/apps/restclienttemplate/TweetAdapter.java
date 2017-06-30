@@ -70,11 +70,28 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvBody.setText(tweet.body);
         holder.tvCreatedAt.setText(getRelativeTimeAgo(tweet.createdAt));
         holder.tvUserhandle.setText("@"+tweet.user.screenName);
+
+        if (tweet.retweetMode==true)
+        {
+            holder.ibRetweet.setColorFilter(0xff17bf63);
+            holder.tvRetweetCount.setTextColor(0xff17bf63);
+        }
+        if (tweet.favoriteMode==true)
+        {
+            holder.ibLike.setColorFilter(0xffe0245e);
+            holder.tvLikeCount.setTextColor(0xffe0245e);
+        }
         if (tweet.retweetCount > 0){
         holder.tvRetweetCount.setText(String.valueOf(tweet.retweetCount));
         } else
         {
             holder.tvRetweetCount.setText("");
+        }
+        if (tweet.favoriteCount > 0){
+            holder.tvLikeCount.setText(String.valueOf(tweet.favoriteCount));
+        } else
+        {
+            holder.tvLikeCount.setText("");
         }
 
         Glide.with(context).load(tweet.user.profileImageUrl).bitmapTransform(new RoundedCornersTransformation(context, 5, 2)).into(holder.ivProfileImage);
@@ -94,6 +111,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvUserhandle;
         public TextView tvRetweetCount;
         public ImageButton ibRetweet;
+        public TextView tvLikeCount;
+        public ImageButton ibLike;
 
 
 
@@ -109,11 +128,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvUserhandle = (TextView) itemView.findViewById(R.id.tvUserhandle);
             tvRetweetCount = (TextView) itemView.findViewById(R.id.tvRetweetCount);
             ibRetweet = (ImageButton) itemView.findViewById(R.id.ibRetweet);
+            tvLikeCount = (TextView) itemView.findViewById(R.id.tvLikeCount);
+            ibLike = (ImageButton) itemView.findViewById(R.id.ibLike);
 
             tvUsername.setTypeface(tf_bold);
             tvBody.setTypeface(tf);
             tvCreatedAt.setTypeface(tf);
             tvUserhandle.setTypeface(tf);
+            tvLikeCount.setTypeface(tf);
+            tvRetweetCount.setTypeface(tf);
 
             ibRetweet.setOnClickListener(new ImageButton.OnClickListener(){
 
@@ -132,7 +155,41 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                                 Log.d("Retweet", "Retweet works!");
                                 try {
                                     tvRetweetCount.setText(String.valueOf(Tweet.fromJSON(response).retweetCount));
-                                    ibRetweet.setColorFilter(R.color.inline_action_retweet);
+                                    ibRetweet.setColorFilter(0xff17bf63);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                super.onFailure(statusCode, headers, throwable, errorResponse);
+                            }
+                        });
+
+                    }
+                }
+            });
+            ibLike.setOnClickListener(new ImageButton.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    // gets item position
+                    int position = getAdapterPosition();
+                    // make sure the position is valid, i.e. actually exists in the view
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get the movie at the position, this won't work if the class is static
+                        Tweet tweet = mTweets.get(position);
+                        client.favorite(tweet.uid, new JsonHttpResponseHandler(){
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                //super.onSuccess(statusCode, headers, response);
+                                Log.d("Favorite", "Favorite works!");
+                                try {
+                                    tvLikeCount.setText(String.valueOf(Tweet.fromJSON(response).favoriteCount));
+                                    ibLike.setColorFilter(0xffe0245e);
+                                    tvLikeCount.setTextColor(0xffe0245e);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
