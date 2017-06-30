@@ -40,7 +40,10 @@
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="This is a sample tweeet that i am writing so that I can check ou the UI"
         android:textSize="14sp"
-        android:lineSpacingMultiplier="1.2"/>
+        android:lineSpacingMultiplier="1.2"
+        android:autoLink="all"
+        android:linksClickable="true"
+        />
 
     <TextView
         android:id="@+id/tvCreatedAt"
