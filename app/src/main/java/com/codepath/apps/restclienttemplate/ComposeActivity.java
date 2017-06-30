@@ -42,6 +42,13 @@ public class ComposeActivity extends AppCompatActivity {
         btSubmit = (Button) findViewById(R.id.btSubmit);
         tvTweetcount = (TextView) findViewById(R.id.tvTweetcount);
 
+        String repliee = getIntent().getStringExtra("username");
+        if (repliee!=null){
+            etCompose.setText("@" + repliee);
+            etCompose.setSelection(etCompose.getText().length());
+        }
+
+
 
         client = TwitterApplication.getRestClient();
         // from https://stackoverflow.com/questions/3013791/live-character-count-for-edittext

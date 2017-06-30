@@ -1,7 +1,9 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -34,10 +36,11 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
     private List<Tweet> mTweets;
-    Context context;
+    private Context context;
     private Typeface tf;
     private Typeface tf_bold;
     TwitterClient client;
+    private final int REQUEST_CODE = 20;
 
     //pass in the Tweets array in the constructor
     public TweetAdapter(List<Tweet> tweets, Typeface typeface, Typeface typeface2) {
@@ -113,6 +116,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public ImageButton ibRetweet;
         public TextView tvLikeCount;
         public ImageButton ibLike;
+        public ImageButton ibReply;
 
 
 
@@ -130,6 +134,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             ibRetweet = (ImageButton) itemView.findViewById(R.id.ibRetweet);
             tvLikeCount = (TextView) itemView.findViewById(R.id.tvLikeCount);
             ibLike = (ImageButton) itemView.findViewById(R.id.ibLike);
+            ibReply = (ImageButton) itemView.findViewById(R.id.ibReply);
 
             tvUsername.setTypeface(tf_bold);
             tvBody.setTypeface(tf);
@@ -204,6 +209,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
                     }
                 }
+            });
+            ibReply.setOnClickListener(new ImageButton.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    // gets item position
+                    int position = getAdapterPosition();
+                    // make sure the position is valid, i.e. actually exists in the view
+                    if (position != RecyclerView.NO_POSITION) {
+                        Tweet tweet = mTweets.get(position);
+                        Intent i = new Intent(context, ComposeActivity.class);
+                        i.putExtra("username", tweet.user.screenName);
+                        ((AppCompatActivity) context).startActivityForResult(i, REQUEST_CODE);
+                        };
+                    }
             });
         }
 
