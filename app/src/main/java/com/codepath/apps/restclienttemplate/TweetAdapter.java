@@ -98,6 +98,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         }
 
         Glide.with(context).load(tweet.user.profileImageUrl).bitmapTransform(new RoundedCornersTransformation(context, 5, 2)).into(holder.ivProfileImage);
+        Glide.with(context).load(tweet.imageUrl).bitmapTransform(new RoundedCornersTransformation(context, 5, 2)).into(holder.ivPhoto);
     }
 
     @Override
@@ -117,6 +118,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvLikeCount;
         public ImageButton ibLike;
         public ImageButton ibReply;
+        public ImageView ivPhoto;
 
 
 
@@ -135,6 +137,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvLikeCount = (TextView) itemView.findViewById(R.id.tvLikeCount);
             ibLike = (ImageButton) itemView.findViewById(R.id.ibLike);
             ibReply = (ImageButton) itemView.findViewById(R.id.ibReply);
+            ivPhoto = (ImageView) itemView.findViewById(R.id.ivPhoto);
 
             tvUsername.setTypeface(tf_bold);
             tvBody.setTypeface(tf);

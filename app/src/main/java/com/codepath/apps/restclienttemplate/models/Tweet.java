@@ -20,6 +20,7 @@ public class Tweet {
     public long favoriteCount;
     public boolean retweetMode;
     public boolean favoriteMode;
+    public String imageUrl;
 
     //empty constructor needed by Parcelable
     public Tweet() {
@@ -38,6 +39,13 @@ public class Tweet {
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         tweet.retweetMode = jsonObject.getBoolean("retweeted");
         tweet.favoriteMode = jsonObject.getBoolean("favorited");
+        //todo: choose media according to photo type
+        try {
+        tweet.imageUrl = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
+        } catch(JSONException e)
+        {
+            tweet.imageUrl = "";
+        };
         return tweet;
     }
 
