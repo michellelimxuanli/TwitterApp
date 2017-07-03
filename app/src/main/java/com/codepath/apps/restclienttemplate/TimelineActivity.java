@@ -75,9 +75,18 @@ public class TimelineActivity extends AppCompatActivity {
             case R.id.miCompose:
                 onComposeTweet();
                 return true;
+            case R.id.miProfile:
+                onProfileView();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void onProfileView() {
+        // launch the profile view
+        Intent i = new Intent(this, ProfileActivity.class);
+        startActivity(i);
     }
 
     /*@Override
