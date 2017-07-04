@@ -41,13 +41,21 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     private Typeface tf_bold;
     TwitterClient client;
     private final int REQUEST_CODE = 20;
+    private TweetAdapterListener mListener;
+
+    //define an interface required by the Viewholder
+    public interface TweetAdapterListener {
+        public void onItemSelected(View view, int position);
+
+    }
 
     //pass in the Tweets array in the constructor
-    public TweetAdapter(List<Tweet> tweets, Typeface typeface, Typeface typeface2) {
+    public TweetAdapter(List<Tweet> tweets, TweetAdapterListener listener, Typeface typeface, Typeface typeface2) {
         mTweets = tweets;
         tf = typeface;
         tf_bold = typeface2;
         client = TwitterApplication.getRestClient();
+        mListener = listener;
 
     }
     //for each row, inflate the layout and cache references into ViewHolder
@@ -145,6 +153,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvUserhandle.setTypeface(tf);
             tvLikeCount.setTypeface(tf);
             tvRetweetCount.setTypeface(tf);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view){
+                    if (mListener != null) {
+                        //get the position of row element
+                        int position = getAdapterPosition();
+                        //fire the listener callback
+                        mListener.onItemSelected(view, position);
+
+                    }
+
+                }
+
+            });
 
             ibRetweet.setOnClickListener(new ImageButton.OnClickListener(){
 

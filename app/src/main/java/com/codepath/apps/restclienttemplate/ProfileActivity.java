@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.fragments.UserTimelineFragment;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -13,8 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-
-import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -50,13 +51,32 @@ public class ProfileActivity extends AppCompatActivity {
                     User user = User.fromJSON(response);
                     // set the title of the toolbar based on the user information
                     getSupportActionBar().setTitle("@" + user.screenName);
-                    log.d("hello", "its me");
+                    // populate the user headline
+                    popularUserHeadline(user);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+
+    }
+
+    public void popularUserHeadline(User user) {
+        TextView tvUsername = (TextView) findViewById(R.id.tvUsername);
+        TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
+        TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
+        TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
+
+        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        tvUsername.setText(user.name);
+
+        tvTagline.setText(user.tagLine);
+        tvFollowers.setText(user.followersCount + " Followers");
+        tvFollowing.setText(user.followingCount + " Following");
+
+        // load profile image
+        Glide.with(this).load(user.profileImageUrl).into(ivProfileImage);
 
     }
 }

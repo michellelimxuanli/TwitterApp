@@ -23,11 +23,16 @@ import java.util.ArrayList;
  * Created by michellelim on 7/3/17.
  */
 
-public class TweetsListFragment extends Fragment {
+public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAdapterListener{
 
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+    public interface TweetSelectedListener {
+        // handle tweet selection
+        public void onTweetSelected(Tweet tweet);
+
+    }
 
     //inflation happens inside on CreateView
     @Nullable
@@ -46,7 +51,7 @@ public class TweetsListFragment extends Fragment {
         tf_bold = Typeface.createFromAsset(getContext().getAssets(),"HelveticaNeue-Bold.ttf");
 
         // construct the adapter from this data source
-        tweetAdapter = new TweetAdapter(tweets, tf, tf_bold);
+        tweetAdapter = new TweetAdapter(tweets, this, tf, tf_bold);
         //RecyclerView setup (layout manager, use adapter)
         rvTweets.setLayoutManager(new LinearLayoutManager(getContext()));
         // set the adapter
@@ -69,5 +74,11 @@ public class TweetsListFragment extends Fragment {
             }
 
         }
+    }
+
+    @Override
+    public void onItemSelected(View view, int position) {
+        Tweet tweet = tweets.get(position);
+        ((TweetSelectedListener) getActivity()).onTweetSelected(tweet);
     }
 }
