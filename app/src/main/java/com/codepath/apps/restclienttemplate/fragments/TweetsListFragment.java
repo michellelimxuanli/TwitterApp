@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+    public SwipeRefreshLayout swipeContainer;
     public interface TweetSelectedListener {
         // handle tweet selection
         public void onTweetSelected(Tweet tweet);
@@ -66,7 +68,29 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         // set the adapter
         rvTweets.setAdapter(tweetAdapter);
 
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchTimelineAsync();
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         return v;
+    }
+
+    public void fetchTimelineAsync () {
+
     }
 
     public void addItems(JSONArray response) {

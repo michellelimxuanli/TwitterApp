@@ -6,10 +6,14 @@ import android.util.Log;
 
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.TwitterClient;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -26,6 +30,40 @@ public class HomeTimelineFragment extends TweetsListFragment{
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
         populateTimeline();
+    }
+
+    @Override
+    public void fetchTimelineAsync() {
+        // Send the network request to fetch the updated data
+        // `client` here is an instance of Android Async HTTP
+        // getHomeTimeline is an example endpoint.
+
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                //clear mtweets in the adapter instance
+                tweetAdapter.clear();
+                ArrayList<Tweet> mtweets = new ArrayList<Tweet>();
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
+                        mtweets.add(tweet);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //data has come back, and you gotta send a list back into the adapter instance
+                tweetAdapter.addAll(mtweets);
+                // Now we call setRefreshing(false) to signal refresh has finished
+                swipeContainer.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.d("TwitterRefresh", errorResponse.toString());
+                throwable.printStackTrace();
+            }
+        });
     }
 
     private void populateTimeline() {
