@@ -1,10 +1,12 @@
 package com.codepath.apps.restclienttemplate.fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAdapterListener{
 
     TweetAdapter tweetAdapter;
+    TweetSelectedListener listener;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
     public SwipeRefreshLayout swipeContainer;
@@ -35,6 +38,7 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         // handle tweet selection
         public void onTweetSelected(Tweet tweet);
         public void onImageSelected(Tweet tweet);
+        public void onRefresh(boolean show);
 
     }
 
@@ -46,6 +50,8 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         View v = inflater.inflate(R.layout.fragments_tweets_list, container, false);
         //find the RecyclerView
         rvTweets = (RecyclerView) v.findViewById(R.id.rvTweet);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar();
 
         //add item decorator
         RecyclerView.ItemDecoration itemDecoration = new
@@ -91,6 +97,14 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
 
     public void fetchTimelineAsync () {
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof TweetSelectedListener) {
+            listener = (TweetSelectedListener) context;
+        }
     }
 
     public void addItems(JSONArray response) {

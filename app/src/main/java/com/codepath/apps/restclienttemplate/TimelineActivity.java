@@ -3,11 +3,13 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
@@ -18,6 +20,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
 
     private final int REQUEST_CODE = 20;
+    MenuItem miActionProgressItem;
 
 
     @Override
@@ -31,8 +34,6 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
 
 
-
-
         // get the view pager
         ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -42,6 +43,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         // setup the TabLayout to use the view pager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+
     }
 
     @Override
@@ -49,6 +51,25 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_compose, menu);
         return true;
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // Extract the action-view from the menu item
+        ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
     }
 
     @Override
@@ -103,5 +124,10 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         Intent i = new Intent(this, ProfileActivity.class);
         i.putExtra("screen_name", tweet.user.screenName);
         startActivity(i);
+    }
+
+    @Override
+    public void onRefresh(boolean show) {
+        miActionProgressItem.setVisible(show);
     }
 }

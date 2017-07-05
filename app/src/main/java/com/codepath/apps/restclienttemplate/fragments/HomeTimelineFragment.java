@@ -38,6 +38,7 @@ public class HomeTimelineFragment extends TweetsListFragment{
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
 
+        listener.onRefresh(true);
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -56,6 +57,7 @@ public class HomeTimelineFragment extends TweetsListFragment{
                 tweetAdapter.addAll(mtweets);
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
+                listener.onRefresh(false);
             }
 
             @Override
@@ -67,6 +69,7 @@ public class HomeTimelineFragment extends TweetsListFragment{
     }
 
     private void populateTimeline() {
+
         client.getHomeTimeline(new JsonHttpResponseHandler(){
 
             @Override
