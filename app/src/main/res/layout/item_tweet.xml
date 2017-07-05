@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutTweet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/textlines">
+    android:layout_height="wrap_content">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivProfileImage"
         android:layout_width="55dp"
         android:layout_height="55dp"

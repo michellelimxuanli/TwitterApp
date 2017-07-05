@@ -45,7 +45,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     //define an interface required by the Viewholder
     public interface TweetAdapterListener {
-        public void onItemSelected(View view, int position);
+        public void onItemSelected(View view, int position, boolean isPic);
 
     }
 
@@ -116,7 +116,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     //create Viewholder class
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView ivProfileImage;
+        public ImageButton ivProfileImage;
         public TextView tvUsername;
         public TextView tvBody;
         public TextView tvCreatedAt;
@@ -135,7 +135,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
             //perform findViewById lookups
 
-            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
+            ivProfileImage = (ImageButton) itemView.findViewById(R.id.ivProfileImage);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvCreatedAt = (TextView) itemView.findViewById(R.id.tvCreatedAt);
@@ -160,7 +160,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                         //get the position of row element
                         int position = getAdapterPosition();
                         //fire the listener callback
-                        mListener.onItemSelected(view, position);
+                        mListener.onItemSelected(view, position, false);
 
                     }
 
@@ -248,6 +248,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                         ((AppCompatActivity) context).startActivityForResult(i, REQUEST_CODE);
                         };
                     }
+            });
+            ivProfileImage.setOnClickListener(new ImageButton.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    // gets item position
+                    int position = getAdapterPosition();
+                    mListener.onItemSelected(v, position, true);
+
+                }
             });
         }
 

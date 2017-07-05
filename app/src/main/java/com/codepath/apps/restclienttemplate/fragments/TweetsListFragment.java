@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
     public interface TweetSelectedListener {
         // handle tweet selection
         public void onTweetSelected(Tweet tweet);
+        public void onImageSelected(Tweet tweet);
 
     }
 
@@ -42,6 +44,13 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         View v = inflater.inflate(R.layout.fragments_tweets_list, container, false);
         //find the RecyclerView
         rvTweets = (RecyclerView) v.findViewById(R.id.rvTweet);
+
+        //add item decorator
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        rvTweets.addItemDecoration(itemDecoration);
+
+
         // init the arrayList (data source)
         tweets = new ArrayList<>();
 
@@ -77,8 +86,12 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
     }
 
     @Override
-    public void onItemSelected(View view, int position) {
+    public void onItemSelected(View view, int position, boolean isPic) {
         Tweet tweet = tweets.get(position);
-        ((TweetSelectedListener) getActivity()).onTweetSelected(tweet);
+        if (isPic) {
+            ((TweetSelectedListener) getActivity()).onImageSelected(tweet);
+        } else{
+            ((TweetSelectedListener) getActivity()).onTweetSelected(tweet);
+        }
     }
 }

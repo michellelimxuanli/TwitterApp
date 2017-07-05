@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -42,8 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         // commit the transaction
         ft.commit();
 
-        client = TwitterApplication.getRestClient();
-        client.getUserInfo(new JsonHttpResponseHandler() {
+        JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 //deserialize the user object
@@ -58,7 +57,16 @@ public class ProfileActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });
+        };
+
+        client = TwitterApplication.getRestClient();
+        if (screenName == null) {
+            client.getUserInfo(handler);
+        }
+        else {
+            client.getAnotherUserInfo(screenName,handler);
+        }
+
 
     }
 
@@ -68,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
         TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
 
-        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        ImageButton ivProfileImage = (ImageButton) findViewById(R.id.ivProfileImage);
         tvUsername.setText(user.name);
 
         tvTagline.setText(user.tagLine);

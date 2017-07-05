@@ -152,4 +152,10 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     public void onTweetSelected(Tweet tweet) {
         Toast.makeText(this, tweet.body, Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onImageSelected(Tweet tweet) {
+        Intent i = new Intent(this, ProfileActivity.class);
+        i.putExtra("screen_name", tweet.user.screenName);
+        startActivity(i);
+    }
 }
