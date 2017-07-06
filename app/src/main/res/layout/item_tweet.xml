@@ -42,6 +42,7 @@
         android:lineSpacingMultiplier="1.2"
         android:autoLink="all"
         android:linksClickable="true"
+        android:textColor="@android:color/background_dark"
         />
 
     <TextView
