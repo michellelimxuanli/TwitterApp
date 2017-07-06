@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class TweetsPagerAdapter extends FragmentPagerAdapter {
 
-    private String tabTitles[] = new String[] {"Home", "Mentions"};
     private Context context;
 
     public TweetsPagerAdapter(FragmentManager fm, Context context) {
@@ -36,11 +35,5 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
             return null;
         }
     }
-    //return title
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        //generate title based on item posiiton
-        return tabTitles[position];
-    }
 }

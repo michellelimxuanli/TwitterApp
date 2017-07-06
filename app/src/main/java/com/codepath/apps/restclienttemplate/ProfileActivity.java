@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -97,7 +98,9 @@ public class ProfileActivity extends AppCompatActivity implements TweetsListFrag
 
     @Override
     public void onImageSelected(Tweet tweet) {
-
+        Intent i = new Intent(this, ProfileActivity.class);
+        i.putExtra("screen_name", tweet.user.screenName);
+        startActivity(i);
     }
 
     @Override
