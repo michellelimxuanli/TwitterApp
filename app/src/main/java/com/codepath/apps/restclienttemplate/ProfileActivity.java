@@ -8,7 +8,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.fragments.UserTimelineFragment;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -17,7 +19,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener {
 
     TwitterClient client;
 
@@ -85,6 +87,21 @@ public class ProfileActivity extends AppCompatActivity {
 
         // load profile image
         Glide.with(this).load(user.profileImageUrl).into(ivProfileImage);
+
+    }
+
+    @Override
+    public void onTweetSelected(Tweet tweet) {
+
+    }
+
+    @Override
+    public void onImageSelected(Tweet tweet) {
+
+    }
+
+    @Override
+    public void onRefresh(boolean show) {
 
     }
 }
