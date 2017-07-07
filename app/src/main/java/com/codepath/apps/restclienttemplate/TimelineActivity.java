@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
@@ -49,6 +51,13 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_vector_home);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_vector_notifications);
+
+        FloatingActionButton myFab = (FloatingActionButton)  findViewById(R.id.fab_compose);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onComposeTweet();
+            }
+        });
 
     }
 
@@ -106,9 +115,6 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-            case R.id.miCompose:
-                onComposeTweet();
-                return true;
             case R.id.miProfile:
                 onProfileView();
                 return true;
