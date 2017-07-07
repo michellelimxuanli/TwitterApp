@@ -29,10 +29,10 @@ import java.util.ArrayList;
 
 public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAdapterListener{
 
-    TweetAdapter tweetAdapter;
+    public TweetAdapter tweetAdapter;
     TweetSelectedListener listener;
-    ArrayList<Tweet> tweets;
-    RecyclerView rvTweets;
+    public ArrayList<Tweet> tweets;
+    public RecyclerView rvTweets;
     public SwipeRefreshLayout swipeContainer;
     public interface TweetSelectedListener {
         // handle tweet selection
@@ -122,6 +122,9 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
 
         }
     }
+
+    public void postTweet(Tweet tweet) {
+    };
 
     @Override
     public void onItemSelected(View view, int position, boolean isPic) {

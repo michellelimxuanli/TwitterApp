@@ -205,19 +205,18 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     }
 
 
-    /*@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         // REQUEST_CODE is defined above
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             // Extract body
             Tweet received_tweet = (Tweet) Parcels.unwrap(intent.getParcelableExtra("new_tweet"));
+            ((TweetsPagerAdapter) vpPager.getAdapter()).mFragmentReferences.get(0).postTweet(received_tweet);
 
-            tweets.add(0, received_tweet);
-            tweetAdapter.notifyItemInserted(0);
-            rvTweets.scrollToPosition(0);
+
         }
-    }*/
+    }
 
 
     public void onComposeTweet() {

@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
+
 /**
  * Created by michellelim on 7/3/17.
  */
@@ -12,6 +14,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class TweetsPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
+    public ArrayList<TweetsListFragment> mFragmentReferences = new ArrayList<>();
 
     public TweetsPagerAdapter(FragmentManager fm, Context context) {
       super(fm);
@@ -28,11 +31,17 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position==0){
-            return new HomeTimelineFragment();
+            HomeTimelineFragment newFrag = new HomeTimelineFragment();
+            mFragmentReferences.add(0, newFrag);
+            return newFrag;
         } else if (position == 1) {
-            return new MentionsTimelineFragment();
+            MentionsTimelineFragment newFrag = new MentionsTimelineFragment();
+            mFragmentReferences.add(1, newFrag);
+            return newFrag;
         } else if (position == 2) {
-            return new MentionsTimelineFragment();
+            MentionsTimelineFragment newFrag = new MentionsTimelineFragment();
+            mFragmentReferences.add(2, newFrag);
+            return newFrag;
         } else {
             return null;
         }

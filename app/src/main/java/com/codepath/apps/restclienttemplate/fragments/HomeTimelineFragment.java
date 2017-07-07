@@ -106,4 +106,10 @@ public class HomeTimelineFragment extends TweetsListFragment{
         });
     }
 
+    public void postTweet(Tweet tweet) {
+        tweets.add(0, tweet);
+        tweetAdapter.notifyItemInserted(0);
+        rvTweets.scrollToPosition(0);
+    };
+
 }
