@@ -45,7 +45,7 @@ public class Tweet {
         } catch(JSONException e)
         {
             tweet.imageUrl = "";
-        };
+        }
         return tweet;
     }
 
