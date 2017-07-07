@@ -37,6 +37,8 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     MenuItem miActionProgressItem;
     TwitterClient client;
     User user;
+    TabLayout tabLayout;
+   TextView menuTitle;
 
 
     @Override
@@ -44,7 +46,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         client = TwitterApplication.getRestClient();
-        final TextView menuTitle = (TextView) findViewById(R.id.menuTitle);
+        menuTitle = (TextView) findViewById(R.id.menuTitle);
         menuTitle.setText("Home");
 
         Toolbar topToolBar = (Toolbar)findViewById(R.id.toolbar);
@@ -74,41 +76,12 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(),this));
 
         // setup the TabLayout to use the view pager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_vector_home);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_vector_notifications_stroke);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                if (position == 0){
-                    tab.setIcon(R.drawable.ic_vector_home);
-                    menuTitle.setText("Home");
-                } else {
-                    tab.setIcon(R.drawable.ic_vector_notifications);
-                    menuTitle.setText("Notifications");
-                }
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                if (position == 0){
-                    tab.setIcon(R.drawable.ic_vector_home_stroke);
-                } else {
-                    tab.setIcon(R.drawable.ic_vector_notifications_stroke);
-                }
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         FloatingActionButton myFab = (FloatingActionButton)  findViewById(R.id.fab_compose);
         myFab.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +97,40 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_compose, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
+
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if (position == 0){
+                    tab.setIcon(R.drawable.ic_vector_home);
+                    menuTitle.setText("Home");
+                } else {
+                    tab.setIcon(R.drawable.ic_vector_notifications);
+                    menuTitle.setText("Notifications");
+                    searchView.setIconified(false);
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if (position == 0){
+                    tab.setIcon(R.drawable.ic_vector_home_stroke);
+                } else {
+                    tab.setIcon(R.drawable.ic_vector_notifications_stroke);
+                    searchView.setIconified(false);
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
