@@ -20,7 +20,7 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
     //return total number of fragments
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     //return the fragment to use depending on the position
@@ -30,6 +30,8 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
         if (position==0){
             return new HomeTimelineFragment();
         } else if (position == 1) {
+            return new MentionsTimelineFragment();
+        } else if (position == 2) {
             return new MentionsTimelineFragment();
         } else {
             return null;

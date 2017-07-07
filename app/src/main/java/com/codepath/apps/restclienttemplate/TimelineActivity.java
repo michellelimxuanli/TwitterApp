@@ -39,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     User user;
     TabLayout tabLayout;
    TextView menuTitle;
+    ViewPager vpPager;
 
 
     @Override
@@ -70,10 +71,11 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
 
         // get the view pager
-        ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+        vpPager = (ViewPager) findViewById(R.id.viewpager);
 
         // set the adapter for the pager
         vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(),this));
+        vpPager.setOffscreenPageLimit(2);
 
         // setup the TabLayout to use the view pager
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -81,6 +83,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_vector_home);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_vector_notifications_stroke);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_vector_search_stroke);
 
 
         FloatingActionButton myFab = (FloatingActionButton)  findViewById(R.id.fab_compose);
@@ -105,10 +108,15 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
                 int position = tab.getPosition();
                 if (position == 0){
                     tab.setIcon(R.drawable.ic_vector_home);
+                    searchView.setIconified(true);
                     menuTitle.setText("Home");
-                } else {
+                } else if (position ==1){
                     tab.setIcon(R.drawable.ic_vector_notifications);
                     menuTitle.setText("Notifications");
+                    searchView.setIconified(true);
+                }
+                else {
+                    tab.setIcon(R.drawable.ic_vector_search);
                     searchView.setIconified(false);
                 }
 
@@ -119,8 +127,14 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
                 int position = tab.getPosition();
                 if (position == 0){
                     tab.setIcon(R.drawable.ic_vector_home_stroke);
-                } else {
+                    searchView.setIconified(true);
+
+                } else if (position ==1){
                     tab.setIcon(R.drawable.ic_vector_notifications_stroke);
+                    searchView.setIconified(true);
+                }
+                else {
+                    tab.setIcon(R.drawable.ic_vector_search_stroke);
                     searchView.setIconified(false);
                 }
             }
@@ -129,6 +143,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
+
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

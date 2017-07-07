@@ -11,12 +11,13 @@
         app:showAsAction="always"
         app:actionLayout="@layout/action_view_progress"/>
 
-    <item android:id="@+id/action_search"
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_vector_search"
         android:orderInCategory="5"
         android:title="Search"
-        android:icon="@drawable/ic_vector_search"
-        app:showAsAction="always"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
 
 
 </menu>
