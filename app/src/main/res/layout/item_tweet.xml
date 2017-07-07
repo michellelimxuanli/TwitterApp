@@ -77,7 +77,8 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/ic_reply"
         android:layout_below="@+id/ivPhoto"
-        android:layout_alignStart="@+id/ivPhoto" />
+        android:layout_alignStart="@+id/ivPhoto"
+        android:layout_marginBottom="12dp"/>
 
     <ImageButton
         android:id="@+id/ibRetweet"

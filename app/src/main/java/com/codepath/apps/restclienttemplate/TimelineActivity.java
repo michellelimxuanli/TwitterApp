@@ -12,13 +12,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.models.User;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener {
@@ -26,17 +35,36 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 
     private final int REQUEST_CODE = 20;
     MenuItem miActionProgressItem;
+    TwitterClient client;
+    User user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        client = TwitterApplication.getRestClient();
+        final TextView menuTitle = (TextView) findViewById(R.id.menuTitle);
+        menuTitle.setText("Home");
 
         Toolbar topToolBar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(topToolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        client.getUserInfo(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //deserialize the user object
+                try {
+                    user = User.fromJSON(response);
+                    ImageButton ivProfileImage = (ImageButton) findViewById(R.id.logo);
+                    // load profile image
+                    Glide.with(getApplicationContext()).load(user.profileImageUrl).into(ivProfileImage);
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
         // get the view pager
@@ -58,8 +86,10 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
                 int position = tab.getPosition();
                 if (position == 0){
                     tab.setIcon(R.drawable.ic_vector_home);
+                    menuTitle.setText("Home");
                 } else {
                     tab.setIcon(R.drawable.ic_vector_notifications);
+                    menuTitle.setText("Notifications");
                 }
 
             }
@@ -139,23 +169,12 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         miActionProgressItem.setVisible(false);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.miProfile:
-                onProfileView();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void onProfileView() {
+    public void onProfileView(View v) {
         // launch the profile view
         Intent i = new Intent(this, ProfileActivity.class);
         startActivity(i);
     }
+
 
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
