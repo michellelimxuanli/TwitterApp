@@ -11,20 +11,25 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/twitter_blue"
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:titleTextColor="#ffffff">
+        android:layout_alignParentEnd="true">
 
     </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shadows"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/shadow"/>
 
     <FrameLayout
         android:id="@+id/flDetailsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/shadow"
         android:layout_alignParentStart="true">
 
     </FrameLayout>

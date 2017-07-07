@@ -50,6 +50,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         menuTitle = (TextView) findViewById(R.id.menuTitle);
         menuTitle.setText("Home");
 
+
         Toolbar topToolBar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(topToolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -101,7 +102,9 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         getMenuInflater().inflate(R.menu.menu_compose, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
+
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setIconified(true);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

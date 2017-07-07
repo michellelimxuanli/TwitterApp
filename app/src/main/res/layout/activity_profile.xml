@@ -9,28 +9,25 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/twitter_blue"
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:titleTextColor="#ffffff">
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="left"
-            android:src="@drawable/ic_twitter_icon"/>
+        android:layout_alignParentEnd="true">
 
     </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shadows"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/shadow"/>
 
     <RelativeLayout
         android:id="@+id/rlUserHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/shadow">
 
 
     <ImageButton
@@ -83,13 +80,21 @@
             android:text="5 following"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shadows"
+        android:layout_below="@+id/llfollow"
+        android:id="@+id/shadow1"/>
+
 
     <FrameLayout
         android:id="@+id/flContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/llfollow">
+        android:layout_below="@+id/llfollow"
+        android:layout_marginTop="10dp">
 
     </FrameLayout>
 
