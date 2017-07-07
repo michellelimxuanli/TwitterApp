@@ -50,7 +50,35 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         tabLayout.setupWithViewPager(vpPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_vector_home);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_vector_notifications);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_vector_notifications_stroke);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if (position == 0){
+                    tab.setIcon(R.drawable.ic_vector_home);
+                } else {
+                    tab.setIcon(R.drawable.ic_vector_notifications);
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if (position == 0){
+                    tab.setIcon(R.drawable.ic_vector_home_stroke);
+                } else {
+                    tab.setIcon(R.drawable.ic_vector_notifications_stroke);
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         FloatingActionButton myFab = (FloatingActionButton)  findViewById(R.id.fab_compose);
         myFab.setOnClickListener(new View.OnClickListener() {
