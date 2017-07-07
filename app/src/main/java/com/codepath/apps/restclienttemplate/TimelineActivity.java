@@ -118,6 +118,8 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
                 else {
                     tab.setIcon(R.drawable.ic_vector_search);
                     searchView.setIconified(false);
+                    menuTitle.setText("");
+
                 }
 
             }
@@ -128,14 +130,17 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
                 if (position == 0){
                     tab.setIcon(R.drawable.ic_vector_home_stroke);
                     searchView.setIconified(true);
+                    menuTitle.setText("Home");
 
                 } else if (position ==1){
                     tab.setIcon(R.drawable.ic_vector_notifications_stroke);
                     searchView.setIconified(true);
+                    menuTitle.setText("Notifications");
                 }
                 else {
                     tab.setIcon(R.drawable.ic_vector_search_stroke);
                     searchView.setIconified(false);
+                    menuTitle.setText("");
                 }
             }
 

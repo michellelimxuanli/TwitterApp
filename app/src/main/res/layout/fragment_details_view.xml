@@ -50,7 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/details_ivProfileImage"
-        android:scaleType="fitXY"
         app:srcCompat="?android:attr/colorBackground"
         android:layout_below="@+id/details_tvBody"
         android:layout_alignStart="@+id/details_tvBody"
